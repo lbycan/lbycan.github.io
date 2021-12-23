@@ -88,16 +88,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
+        <p><em>引用：</em></p>
+<h4 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h4><ul>
 <li>针对基于CNN的图像检索系统对图像特征表达力不足、缺乏准确率和鲁棒性，提出结合注意力卷积神经网络的图像检索技术；</li>
 <li>针对基础VGG-16缺少BN层、池化对局部的忽视、改进影响速度等因素，加入BN计算、替换Max-pooling层、渐少FC层，并行加入串行注意力模型(CS-Attention)实现对特征向量加权重构；</li>
 <li>通过计算所要检索图像与图像库中图像的余弦相似度，得出相似图像。</li>
+</ul>
+<h4 id="引言："><a href="#引言：" class="headerlink" title="引言："></a>引言：</h4><p>1.加入BN操作可以提升收敛速度；</p>
+<p>2.通过PCA压缩和反诉训练可提升特征提取性能；</p>
+<p>3.由于改进单对模型不满足检索精度和速率的要求，融合注意力模型开始成为研究热点；</p>
+<p><strong>本文在基础模型VGG-16上进行改进，VGG-16模型缺少BN层，因此在ReLU计算前加入BN层，使得卷积后特征呈正态分布；为了映射图像关键位置、提升准确率，并行CS-Attention注意力模型，使得卷积后的特征向量得以重构。经过多次卷积和池化，进入替换的Mean-pooling和增加的SP金字塔池化，可以更多地保留次要元素、增强通用性；为了弥补之前的时间损失，再进入简化的全连接层，从而提高图像特征提取速度。</strong></p>
+<h4 id="相关工作："><a href="#相关工作：" class="headerlink" title="相关工作："></a>相关工作：</h4><ul>
+<li><p>CNN核心卷积层输出的特征运算公式：<br>$$<br>Ckj= f(∑count(Nj)i∈Njwkij×C(k－1)i+ bkj)<br>$$<br>其中k为层数，Ckj为第k层的第j个特征图，f(×)为ReLU激活函数，Nj为输入卷积层的特征图，count(Nj)为特征图个数，w为卷积核，×为卷积运算，b为偏置项．</p>
+</li>
+<li><p>注意力模型可以在全局图像中寻找关键的目标信息，忽略无用信息，与CNN结合生成图像显著区。</p>
+</li>
+</ul>
+<h4 id="算法框架："><a href="#算法框架：" class="headerlink" title="算法框架："></a>算法框架：</h4><p><img src="https://github.com/lbycan/ImageData/blob/main/%E5%9F%BA%E4%BA%8ECNN%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%B5%81%E7%A8%8B.jpg?raw=true"></p>
+<ul>
+<li><p>图像预处理：大小处理为224x224，去均值处理，从RGB三维度减去其均值，将图像数据中心化为0，防止拟合；归一化处理，计算RGB最值，将图像数据压缩在0-1之间，提高收敛度；<br>$$<br>去均值化：Xij= Xij－1/m(∑m(j =1))Xij<br>$$</p>
+<p>$$<br>归一化：Xij=［Xij－ min(Xij) ］/［max(Xij)－ min(Xij) ］<br>$$</p>
+</li>
+<li><p>加入BN层，VGG-N模型的卷积操作实际变成CONV+BN+ReLU；<br>$$<br>BN层引入可学习参数γ和β：γ(h)，β(h)=√var［x^h］，E［x(k)］<br>$$</p>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" data-id="ckxhigo4p0001zgvmhlq63qmz" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" data-id="ckxiyw8h50001j4vmazlf4ufc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li></ul>
@@ -170,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/22/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" data-id="ckxhigo4j0000zgvm72lu8q31" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/22/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" data-id="ckxiyw8gl0000j4vm405j5sgd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li></ul>
@@ -214,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BYOLOv5s%E7%9A%84%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E8%AF%86%E5%88%AB%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/" data-id="ckxhigo530006zgvmbixb88br" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BYOLOv5s%E7%9A%84%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E8%AF%86%E5%88%AB%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/" data-id="ckxiyw8hf0003j4vmdyixe9el" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag">目标检测</a></li></ul>
