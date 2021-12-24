@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/lbycan/ImageData/blob/main/%E5%9F%BA%E4%BA%8ECNN%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%B5%81%E7%A8%8B.jpg?raw=true">
 <meta property="article:published_time" content="2021-12-22T10:58:09.000Z">
-<meta property="article:modified_time" content="2021-12-23T12:52:16.891Z">
+<meta property="article:modified_time" content="2021-12-24T01:42:06.452Z">
 <meta property="article:author" content="Cloud">
 <meta property="article:tag" content="图像检索">
 <meta name="twitter:card" content="summary">
@@ -102,24 +102,22 @@
 <p>3.由于改进单对模型不满足检索精度和速率的要求，融合注意力模型开始成为研究热点；</p>
 <p><strong>本文在基础模型VGG-16上进行改进，VGG-16模型缺少BN层，因此在ReLU计算前加入BN层，使得卷积后特征呈正态分布；为了映射图像关键位置、提升准确率，并行CS-Attention注意力模型，使得卷积后的特征向量得以重构。经过多次卷积和池化，进入替换的Mean-pooling和增加的SP金字塔池化，可以更多地保留次要元素、增强通用性；为了弥补之前的时间损失，再进入简化的全连接层，从而提高图像特征提取速度。</strong></p>
 <h4 id="相关工作："><a href="#相关工作：" class="headerlink" title="相关工作："></a>相关工作：</h4><ul>
-<li><p>CNN核心卷积层输出的特征运算公式：<br>$$<br>Ckj= f(∑count(Nj)i∈Njwkij×C(k－1)i+ bkj)<br>$$<br>其中k为层数，Ckj为第k层的第j个特征图，f(×)为ReLU激活函数，Nj为输入卷积层的特征图，count(Nj)为特征图个数，w为卷积核，×为卷积运算，b为偏置项．</p>
-</li>
-<li><p>注意力模型可以在全局图像中寻找关键的目标信息，忽略无用信息，与CNN结合生成图像显著区。</p>
-</li>
+<li>CNN核心卷积层输出的特征运算公式：<br>$$<br>C^k_j= f(∑^{count(N_j)}<em>{i∈N_j}w^k</em>{ij}<br>×<br>C^{k－1}_i+ b^k_j)<br>$$<br>其中k为层数，Ckj为第k层的第j个特征图，f(×)为ReLU激活函数，Nj为输入卷积层的特征图，count(Nj)为特征图个数，w为卷积核，×为卷积运算，b为偏置项．</li>
+<li>注意力模型可以在全局图像中寻找关键的目标信息，忽略无用信息，与CNN结合生成图像显著区。</li>
 </ul>
 <h4 id="算法框架："><a href="#算法框架：" class="headerlink" title="算法框架："></a>算法框架：</h4><p><img src="https://github.com/lbycan/ImageData/blob/main/%E5%9F%BA%E4%BA%8ECNN%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%B5%81%E7%A8%8B.jpg?raw=true"></p>
 <ul>
-<li><p>图像预处理：大小处理为224x224，去均值处理，从RGB三维度减去其均值，将图像数据中心化为0，防止拟合；归一化处理，计算RGB最值，将图像数据压缩在0-1之间，提高收敛度；<br>$$<br>去均值化：Xij= Xij－1/m(∑m(j =1))Xij<br>$$</p>
-<p>$$<br>归一化：Xij=［Xij－ min(Xij) ］/［max(Xij)－ min(Xij) ］<br>$$</p>
+<li><p>图像预处理：大小处理为224x224，去均值处理，从RGB三维度减去其均值，将图像数据中心化为0，防止拟合；归一化处理，计算RGB最值，将图像数据压缩在0-1之间，提高收敛度；<br>$$<br>去均值化：X^i_j= X^i_j－1/m∑^m_{j =1}X^i_j<br>$$</p>
+<p>$$<br>归一化：X^i_j=［X^i_j－ min(X^i_j) ］/［max(X^i_j)－ min(X^i_j) ］<br>$$</p>
 </li>
-<li><p>加入BN层，VGG-N模型的卷积操作实际变成CONV+BN+ReLU；<br>$$<br>BN层引入可学习参数γ和β：γ(h)，β(h)=√var［x^h］，E［x(k)］<br>$$</p>
+<li><p>加入BN层，VGG-N模型的卷积操作实际变成CONV+BN+ReLU；<br>$$<br>BN层引入可学习参数γ和β：γ(h)，β(h)=\sqrt{var［x^h］}，E［x(k)］<br>$$</p>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" data-id="ckxiyw8h50001j4vmazlf4ufc" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" data-id="ckxjqdd250001nsvm0oyo4hgx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li></ul>
