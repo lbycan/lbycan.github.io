@@ -88,33 +88,69 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><em>引用：</em></p>
+        <p><em>引用：</em>[1]魏赟,严正怡.结合注意力卷积神经网络的图像检索技术研究[J].小型微型计算机系统,2021,42(11):2368-2374.</p>
+<hr>
 <h4 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h4><ul>
 <li>针对基于CNN的图像检索系统对图像特征表达力不足、缺乏准确率和鲁棒性，提出结合注意力卷积神经网络的图像检索技术；</li>
 <li>针对基础VGG-16缺少BN层、池化对局部的忽视、改进影响速度等因素，加入BN计算、替换Max-pooling层、渐少FC层，并行加入串行注意力模型(CS-Attention)实现对特征向量加权重构；</li>
 <li>通过计算所要检索图像与图像库中图像的余弦相似度，得出相似图像。</li>
 </ul>
+<hr>
 <h4 id="引言："><a href="#引言：" class="headerlink" title="引言："></a>引言：</h4><p>1.加入BN操作可以提升收敛速度；</p>
 <p>2.通过PCA压缩和反诉训练可提升特征提取性能；</p>
 <p>3.由于改进单对模型不满足检索精度和速率的要求，融合注意力模型开始成为研究热点；</p>
 <p><strong>本文在基础模型VGG-16上进行改进，VGG-16模型缺少BN层，因此在ReLU计算前加入BN层，使得卷积后特征呈正态分布；为了映射图像关键位置、提升准确率，并行CS-Attention注意力模型，使得卷积后的特征向量得以重构。经过多次卷积和池化，进入替换的Mean-pooling和增加的SP金字塔池化，可以更多地保留次要元素、增强通用性；为了弥补之前的时间损失，再进入简化的全连接层，从而提高图像特征提取速度。</strong></p>
+<hr>
 <h4 id="相关工作："><a href="#相关工作：" class="headerlink" title="相关工作："></a>相关工作：</h4><ul>
-<li>CNN核心卷积层输出的特征运算公式：<br>$$<br>C^k_j= f(∑^{count(N_j)}<em>{i∈N_j}w^k</em>{ij}<br>×<br>C^{k－1}_i+ b^k_j)<br>$$<br>其中k为层数，Ckj为第k层的第j个特征图，f(×)为ReLU激活函数，Nj为输入卷积层的特征图，count(Nj)为特征图个数，w为卷积核，×为卷积运算，b为偏置项．</li>
-<li>注意力模型可以在全局图像中寻找关键的目标信息，忽略无用信息，与CNN结合生成图像显著区。</li>
+<li><p>CNN核心卷积层输出的特征运算公式：<br>$$<br>C^k_j= f(∑^{count(N_j)}<em>{i∈N_j}w^k</em>{ij}×C^{k－1}_i+ b^k_j)<br>$$<br>其中k为层数，Ckj为第k层的第j个特征图，f(×)为ReLU激活函数，Nj为输入卷积层的特征图，count(Nj)为特征图个数，w为卷积核，×为卷积运算，b为偏置项．</p>
+</li>
+<li><p>注意力模型可以在全局图像中寻找关键的目标信息，忽略无用信息，与CNN结合生成图像显著区。</p>
+</li>
 </ul>
+<hr>
 <h4 id="算法框架："><a href="#算法框架：" class="headerlink" title="算法框架："></a>算法框架：</h4><p><img src="https://github.com/lbycan/ImageData/blob/main/%E5%9F%BA%E4%BA%8ECNN%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%B5%81%E7%A8%8B.jpg?raw=true"></p>
 <ul>
-<li><p>图像预处理：大小处理为224x224，去均值处理，从RGB三维度减去其均值，将图像数据中心化为0，防止拟合；归一化处理，计算RGB最值，将图像数据压缩在0-1之间，提高收敛度；<br>$$<br>去均值化：X^i_j= X^i_j－1/m∑^m_{j =1}X^i_j<br>$$</p>
-<p>$$<br>归一化：X^i_j=［X^i_j－ min(X^i_j) ］/［max(X^i_j)－ min(X^i_j) ］<br>$$</p>
-</li>
+<li>图像预处理：大小处理为224x224，去均值处理，从RGB三维度减去其均值，将图像数据中心化为0，防止拟合；归一化处理，计算RGB最值，将图像数据压缩在0-1之间，提高收敛度；<br>$$<br>去均值化：X^i_j= X^i_j－1/m∑^m_{j =1}X^i_j<br>$$</li>
+</ul>
+<p>$$<br>  归一化：X^i_j=［X^i_j－ min(X^i_j) ］/［max(X^i_j)－ min(X^i_j) ］<br>$$</p>
+<ul>
 <li><p>加入BN层，VGG-N模型的卷积操作实际变成CONV+BN+ReLU；<br>$$<br>BN层引入可学习参数γ和β：γ(h)，β(h)=\sqrt{var［x^h］}，E［x(k)］<br>$$</p>
 </li>
+<li><p>替换Max-pooling：在ILS-VRC数据集用VGG-16模型，最后一层池化层替换成Mean-pooling能够降低邻域大小造成的误差、更多保留图像背景，从而提升检索精度，而Max-pooling仅仅偏向于降低卷积参数造成的误差。</p>
+</li>
+<li><p>加入空间金字塔池化层：为了增强模型的通用性和鲁棒性，在全连接层前面加入SP金字塔池化层．此时图像以不同大小进入VGG-N模型中，仍可以固定大小进入全连接层，这样增加了模型的鲁棒性；</p>
+</li>
+<li><p>减少全连接层：越靠近顶层的操作对图像特征提取影响越小，为了减少网络计算量、提升训练速率，删除前两层FC，保留最后一层FC</p>
+</li>
+<li><p>串行注意力模型：本文注意力模型是由通道注意力模块和空间注意力模块串行组合而成的串行注意力模型(CS-Attention)，串行的先通道后空间注意力模型的检索错误率最低；</p>
+<p><strong>通道注意力模块过程：</strong>(1)中间特征图经过最大池化、平均池化和随机池化得到相同维度的多个具有全局意义的实数；(2)进入共享网络，减少不同通道的查一下，得到3个MLP操作后的向量；(3)3个向量各元素相加组成一维向量，用ReLU函数归一化到0-1范围；(4)对输入的特征图的通道进行加权；</p>
+<p><strong>空间注意力模块过程：</strong>(1)用Stochastic-pooling、Max-pooling和Mean-pooling这3种池化进行降维，得到3个特征矩阵$K^S_sto$、$K^S_avg$、$K^S_max$;(2)将输出的3个特征矩阵合成一个，进行Conv操作，得到卷积后的注意力特征图；(3)用ReLU函数得到经过空间注意力模块、范围为0-1的注意力图；(4)对输入特征的空间加权</p>
+<p><img src="https://github.com/lbycan/ImageData/blob/main/%E4%B8%B2%E8%A1%8C%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9E%8B.jpg?raw=true"></p>
+</li>
+<li><p><strong>注意力卷积神经网络(VGG-NA)：</strong></p>
+<p>VGG-NA模型由VGG-N模型和CS-Attention模型并行组合而成，其中VGG-N模型(如图3(A)为VGG-N的一个模<br>块)为用于特征提取的CNN基础模型，CS-Attention模型为用于加权的注意力模型，CS-Attention模型被应用于全网VGG-N模型。图像数据集经过预处理进入VGG-NA模型进行训练，池化前的中间特征向量由两部分相乘得到:第1部分是<strong>多组CONV + BN + ReLU的卷积操作</strong>，其中卷积核为3 ×3、步长为1；第2部分是<strong>CS-Attention注意力模型</strong>加权映射．之后送入<strong>池化层</strong>，包括4个Max-pooling池化层、1个Mean-poo-ling池化层和1个SP金字塔池化层。最后经过<strong>1个FC层和Softmax分类函数</strong>，完成特征提取。</p>
+<p><img src="https://github.com/lbycan/ImageData/blob/main/VGG-NA%E6%A8%A1%E5%9E%8B.jpg?raw=true"></p>
+</li>
+<li><p>相似性检索算法：本文通过向量表示经训练模型VGG-NA提取的图像特征，因此选取余弦相似度算法(Cosine Similarity)来计算向量夹角的余弦值，比较图像相似度．余弦值越接近1，夹角越接近0，相似度越高。</p>
+</li>
+</ul>
+<hr>
+<h4 id="实验于分析："><a href="#实验于分析：" class="headerlink" title="实验于分析："></a>实验于分析：</h4><ul>
+<li>数据集：Corel-1000和Corel5K图像集；</li>
+<li>使用一种基于排名的评价标准；</li>
+<li>使用高斯分布随机产生权值，去除Dropout层、加入BN层防止过拟合，$L_2$惩罚系数为0.0001，mini-batch为256，梯度下降动量为0.9，初始学习率为0.002，学习率衰减为0.9</li>
+</ul>
+<hr>
+<h4 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h4><ul>
+<li>对基础网络模型VGG-16的改进，在CONV和ReLU之间加入BN计算、替换Max-pooling为Mean-pooling、增加SP金字塔池化、简化FC层，得到新模型VGG-N；</li>
+<li>对注意力模型的改进，在串行的空间和通道注意力模型的池化部分加入stochastic-pooling，得到新串行注意力模型CS-Attention；</li>
+<li>将VGG-N模型与CS-Attention模型并行加权融合，重构特征向量，得到本文VGG-NA模型。</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" data-id="ckxjqdd250001nsvm0oyo4hgx" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" data-id="ckxjts9dq0001zgvm6mfj6qp6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li></ul>
@@ -187,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/22/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" data-id="ckxjqdd1o0000nsvmen2nhoor" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/22/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" data-id="ckxjts9dj0000zgvm3lteh5m5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li></ul>
@@ -231,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BYOLOv5s%E7%9A%84%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E8%AF%86%E5%88%AB%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/" data-id="ckxjqdd2a0003nsvmdm3c6srl" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/12/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%9F%BA%E4%BA%8E%E6%94%B9%E8%BF%9BYOLOv5s%E7%9A%84%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E8%AF%86%E5%88%AB%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/" data-id="ckxjts9dv0003zgvm9824dpbs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag">目标检测</a></li></ul>
