@@ -66,6 +66,93 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-医学影像相关论文" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/01/11/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/" class="article-date">
+  <time datetime="2022-01-11T11:13:54.000Z" itemprop="datePublished">2022-01-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/11/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/">医学影像相关论文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<hr>
+<hr>
+<h3 id="一、基于深度学习的多模态医学影像分割研究综述"><a href="#一、基于深度学习的多模态医学影像分割研究综述" class="headerlink" title="一、基于深度学习的多模态医学影像分割研究综述"></a>一、基于深度学习的多模态医学影像分割研究综述</h3><p><em>引用：[1]杨鸿杰,徐巧枝,于磊.基于深度学习的多模态医学影像分割研究综述[J/OL].计算机应用研究:1-12[2022-01-11].DOI:10.19734/j.issn.1001-3695.2021.10.0424.</em></p>
+<hr>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><blockquote>
+<p>范立南, 王晶, 王银玲, 等. 多模态医学图像融合技术综述 [J]. 沈阳大学学报, 2009 (03): 96-100. (Fan Linan, Wang Jing, Wang Yinling, et  al. Review  of  multi-modal  medical  image  Fusion  [J].  Journal  of Shenyang University, 2009 (03): 96-100.) </p>
+</blockquote>
+<p>对多模态医学影像的融合技术进行了整理，但所涉及的都是基于传统方法的图像融合技术，没有对深度学习技术下的图像融合技术进行分析。</p>
+<blockquote>
+<p>彭璟, 罗浩宇, 赵淦森, 等. 深度学习下的医学影像分割算法综述 [J]. 计算机工程与应用, 2021, 57 (3): 44-54. (Peng Jing, Luo Haoyu, Zhao Gansen, et al. Medical Image Segmentation Algorithms based on deep learning [J]. Computer Engineering and Applications, 2021, 57 (3): 44-54.) </p>
+</blockquote>
+<p>总结和概括了近年基于深度学习的医学影像分割方法、常用评价指标和数据集，但针对的都是单模态医学影像。</p>
+<blockquote>
+<p>张萍, 徐巧枝. 深度学习技术在PET/CT医学影像中的应用综述 [J].内蒙古师范大学学报: 自然科学版, 50 (2): 9. (Zhang Ping, Xu Qiaozhi. Application of deep learning technology in PET/CT medical images [J]. Journal of Inner Mongolia Normal University: Natural Science Edition, 50 (2): 9.)  </p>
+</blockquote>
+<p>综述了深度学习技术在多模态PET/CT医学影像分析中的应用，但对于PET/CT影像的融合方式没有进行介绍。</p>
+<blockquote>
+<p>李伊宁, 王弘熠, 王天任, 等. 基于深度学习的多模态融合的临床应用. [J]. 医学理论与实践, 2021, 34 (10): 1654-1662. (LI Yining, WANG Hongyi, WANG Tianren, et al. Clinical application of multimodal fusion based on deep learning [J]. Medical Theory &amp; Practice, 2021, 34 (10): 1654-1662.) </p>
+</blockquote>
+<p>总结了多模态、深度学习以及多模态融合的应用领域，但没有分析多模态医学影像的融合方式和分割方法。</p>
+<hr>
+<h4 id="多模态医学影像简介"><a href="#多模态医学影像简介" class="headerlink" title="多模态医学影像简介"></a>多模态医学影像简介</h4><ul>
+<li><p><strong>磁共振成像MRI：</strong>MRI技术可以提供不同对比度（即模态）的图像，是一种非侵入、性能良好的软组织对比成像方式。一个完整的MRI影像包含四种模态，分别为T1加权(T1)，T1增强对比度(T1c)，T2加权(T2)和T2流体衰减反转恢复(Flair)。<strong>T2和Flair图像适于检测病灶周围的水肿情况，T1和T1c则适于检测病灶的核心。</strong></p>
+<blockquote>
+<p>一般来说，Flair图像中的病灶区域和正常组织的灰度存在明显差异，而T1c图像中病灶区域的边界特征比较明显。MRI目前主要用于检测颅脑、脊柱和脊髓等部位的疾病。</p>
+</blockquote>
+<p><img src="https://github.com/lbycan/ImageData/blob/main/%E8%84%91%E9%83%A8MRI%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B.png?raw=true" alt="脑部MRI图像示例"></p>
+</li>
+<li><p>**PET/CT图像 : ** <em>CT[12]是一种结构成像技术，利用病灶和非软组织之间强度不同的特点，可以清晰显示病灶区域，但区分病灶与周围软组织的能力稍逊。PET是一种核成像技术，可以显示体内代谢过程，但其空间分辨率较低，致使图像中的病灶边界比较模糊[13]。</em></p>
+<p>PET/CT是一种集成影像，同时<strong>包含PET的代谢信息和CT的解剖信息</strong>，具有较高的清晰度，并且<strong>对病灶区域和正常组织有优良的区分能力</strong>。</p>
+<p><img src="https://github.com/lbycan/ImageData/blob/main/%E8%82%BA%E9%83%A8CT%E3%80%81PET%E5%8F%8APET-CT%E5%9B%BE%E5%83%8F.png?raw=true" alt="肺部CT、PET及PET-CT图像"></p>
+</li>
+<li><p>多模态医学影像分割领域常用数据集:</p>
+<p><img src="https://github.com/lbycan/ImageData/blob/main/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F%E5%88%86%E5%89%B2%E9%A2%86%E5%9F%9F%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E9%9B%86.png?raw=true"></p>
+</li>
+</ul>
+<hr>
+<h4 id="医学影像分割常用的深度学习模型"><a href="#医学影像分割常用的深度学习模型" class="headerlink" title="医学影像分割常用的深度学习模型"></a>医学影像分割常用的深度学习模型</h4><p><em>FCN、U-Net、GAN和Transformer在医学影像分割和分类方面表现出更好的性能</em></p>
+<ul>
+<li><p><strong>全卷积神经网络(FCN) :<strong>典型的</strong>编码器-解码器</strong>结构，可以接收任意大小的输入并生成相同大小的输出。编码器生成带有语义信息的特征图，解码器将编码器输出的低分辨率特征图像映射为输入图像的尺寸，以进行逐像素的分类。</p>
+<p><strong>FCN的上采样结果比较模糊，对图像中的细节敏感性低，没有充分考虑像素与像素之间的关系，缺乏空间一致性。</strong></p>
+<blockquote>
+<p>FCN的核心思想是将卷积神经网络模型中的全连接层替换为卷积层，同时使用反卷积进行上采样操作。FCN能够将深层语义信息与浅层外观信息结合，生成较准确的分割结果。</p>
+</blockquote>
+</li>
+<li><p><strong>U-Net：</strong></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/11/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/" data-id="ckya3m78r0000swvmax5c4kd7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F/" rel="tag">医学影像</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-结合注意力卷积神经网络的图像检索技术研究" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/" class="article-date">
@@ -292,7 +379,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag">目标检测</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F/" rel="tag">医学影像</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" rel="tag">图像检索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag">目标检测</a></li></ul>
     </div>
   </div>
 
@@ -302,7 +389,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">图像检索</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 10px;">目标检测</a>
+      <a href="/tags/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F/" style="font-size: 10px;">医学影像</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">图像检索</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 10px;">目标检测</a>
     </div>
   </div>
 
@@ -311,7 +398,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li></ul>
     </div>
   </div>
 
@@ -322,6 +409,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/01/11/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/">医学影像相关论文</a>
+          </li>
         
           <li>
             <a href="/2021/12/22/%E7%BB%93%E5%90%88%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6/">论文阅读-《结合注意力卷积神经网络的图像检索技术研究》</a>
